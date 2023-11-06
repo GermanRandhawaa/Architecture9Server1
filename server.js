@@ -13,14 +13,12 @@ app.use(cors({
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 }));
 
-
 const pool = mysql.createPool({
-  host: process.env.DB_HOST, 
-  user: process.env.DB_USERNAME, 
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DBNAME,
-  
-});
+  host: 'sql.freedb.tech', // Replace with your actual database host
+  user: 'freedb_germanRandhawa', // Replace with your actual database username
+  password: 'RY%qF5T22AZxN$y', // Replace with your actual database password
+  database: 'freedb_lab9NodeMysql', // Replace with your actual database name
+})
 
 pool.getConnection((err, conn) => {
   if(err) console.log(err)
