@@ -5,7 +5,23 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mysql": "^2.18.1"
-  }
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.3"
+  },
+  "name": "server1",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GermanRandhawaa/Architecture9Server1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GermanRandhawaa/Architecture9Server1/issues"
+  },
+  "homepage": "https://github.com/GermanRandhawaa/Architecture9Server1#readme",
+  "description": ""
 }
