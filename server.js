@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 app.use(bodyParser.json());
+
+require('dotenv').config();
 
 app.use(cors({
   origin: '*', 
@@ -12,21 +14,35 @@ app.use(cors({
 }));
 
 
-
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '', 
-  database: 'characterDict'
+const pool = mysql.createPool({
+  host: process.env.DB_HOST, 
+  user: process.env.DB_USERNAME, 
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DBNAME,
+  
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection error: ' + err);
-  } else {
-    console.log('Database connected');
-  }
-});
+pool.getConnection((err, conn) => {
+  if(err) console.log(err)
+  console.log("Connected successfully")
+})
+
+
+
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '', 
+//   database: 'characterDict'
+// });
+
+// db.connect((err) => {
+//   if (err) {
+//     console.error('Database connection error: ' + err);
+//   } else {
+//     console.log('Database connected');
+//   }
+// });
 
 
 app.post('/api/v1/definition', (req, res) => {
@@ -119,6 +135,9 @@ app.get('/api/v1/languages', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT} `);
+})
