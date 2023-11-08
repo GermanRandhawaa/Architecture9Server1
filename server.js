@@ -14,10 +14,10 @@ app.use(cors({
 }));
 
 const pool = mysql.createPool({
-  host: 'sql.freedb.tech', // Replace with your actual database host
-  user: 'freedb_germanRandhawa', // Replace with your actual database username
+  host: 'sql.freepool.tech', // Replace with your actual database host
+  user: 'freepool_germanRandhawa', // Replace with your actual database username
   password: 'RY%qF5T22AZxN$y', // Replace with your actual database password
-  database: 'freedb_lab9NodeMysql', // Replace with your actual database name
+  database: 'freepool_lab9NodeMysql', // Replace with your actual database name
 })
 
 pool.getConnection((err, conn) => {
@@ -27,14 +27,14 @@ pool.getConnection((err, conn) => {
 
 
 
-// const db = mysql.createConnection({
+// const pool = mysql.createConnection({
 //   host: 'localhost',
 //   user: 'root',
 //   password: '', 
 //   database: 'characterDict'
 // });
 
-// db.connect((err) => {
+// pool.connect((err) => {
 //   if (err) {
 //     console.error('Database connection error: ' + err);
 //   } else {
@@ -49,7 +49,7 @@ app.post('/api/v1/definition', (req, res) => {
   const sql = 'INSERT INTO dictionary (word, definition, word_language, definition_language) VALUES (?, ?, ?, ?)';
   const values = [word, definition, wordLanguage, definitionLanguage];
 
-  db.query(sql, values, (err, result) => {
+  pool.query(sql, values, (err, result) => {
       if (err) {
           console.error(err);
           res.status(500).json({ message: 'Database error', error: err.message });
@@ -68,7 +68,7 @@ app.patch('/api/v1/definition/:word', (req, res) => {
   const sql = 'UPDATE dictionary SET definition = ? WHERE word = ?';
   const values = [newDefinition, wordToUpdate];
 
-  db.query(sql, values, (err, result) => {
+  pool.query(sql, values, (err, result) => {
     if (err) {
       res.status(500).json({ message: 'Database error', entries: 0 });
     } else if (result.affectedRows === 0) {
@@ -88,7 +88,7 @@ app.get('/api/v1/definition/:word', (req, res) => {
   
   const sql = 'SELECT definition FROM dictionary WHERE word = ?';
   
-  db.query(sql, wordToRetrieve, (err, result) => {
+  pool.query(sql, wordToRetrieve, (err, result) => {
     if (err) {
       res.status(500).json({ message: 'Database error', definition: '' });
     } else if (result.length === 0) {
@@ -105,7 +105,7 @@ app.delete('/api/v1/definition/:word', (req, res) => {
 
   const sql = 'DELETE FROM dictionary WHERE word = ?';
   
-  db.query(sql, wordToDelete, (err, result) => {
+  pool.query(sql, wordToDelete, (err, result) => {
     if (err) {
       res.status(500).json({ message: 'There is Error in the Database Server', entries: 0 });
     } else if (result.affectedRows === 0) {
@@ -120,7 +120,7 @@ app.delete('/api/v1/definition/:word', (req, res) => {
 app.get('/api/v1/languages', (req, res) => {
   const sql = 'SELECT name FROM language';
 
-  db.query(sql, (err, result) => {
+  pool.query(sql, (err, result) => {
     if (err) {
       console.error('Database error:', err);
       res.status(500).json({ message: ' There  is error in the database', languages: [] });
