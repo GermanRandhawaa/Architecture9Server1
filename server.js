@@ -14,10 +14,10 @@ app.use(cors({
 }));
 
 const pool = mysql.createPool({
-  host: 'sql.freepool.tech', // Replace with your actual database host
-  user: 'freepool_germanRandhawa', // Replace with your actual database username
-  password: 'RY%qF5T22AZxN$y', // Replace with your actual database password
-  database: 'freepool_lab9NodeMysql', // Replace with your actual database name
+  host: 'b23qixp4uklbhhmn4bap-mysql.services.clever-cloud.com', 
+  user: 'udvfnxbhohjbjyvm', 
+  password: 'irWzu6JPSod85HoLNKjS', 
+  database: 'b23qixp4uklbhhmn4bap', 
 })
 
 pool.getConnection((err, conn) => {
